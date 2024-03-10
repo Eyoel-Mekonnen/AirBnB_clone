@@ -35,7 +35,7 @@ class HBNBCommand(cmd.Cmd):
         classes = ["BaseModel", "User", "State",
                    "City", "Amenity", "Place", "Review"]
         line = line.strip()
-        if line is None or line == " ":
+        if not line:
             print("** class name missing **")
             return
         list_ = line.split(" ", 1)
