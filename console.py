@@ -256,9 +256,9 @@ class HBNBCommand(cmd.Cmd):
                     attribute_value = int(attribute_value)
                 elif attribute_name in ["latitude", "longitude"]:
                     attribute_value = float(attribute_value)
-                if hasattr(instance, attribute_name):
-                    setattr(instance, attribute_name, attribute_value)
-                    instance.save()
+                """if hasattr(instance, attribute_name):"""
+                setattr(instance, attribute_name, attribute_value)
+                instance.save()
                 else:
                     print("** value missing **")
                     return
