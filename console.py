@@ -259,9 +259,6 @@ class HBNBCommand(cmd.Cmd):
                 """if hasattr(instance, attribute_name):"""
                 setattr(instance, attribute_name, attribute_value)
                 instance.save()
-                else:
-                    print("** value missing **")
-                    return
         else:
             print("** no instance found **")
             return
