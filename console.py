@@ -29,7 +29,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """when user enters nothing the loop continues with the prompt"""
         pass
-    
+
     def do_create(self, line):
         """Creates a new instance of BaseModel, saves it and prints the id"""
         classes = ["BaseModel", "User", "State",
@@ -49,7 +49,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show(self, line):
-        """Prints string representation of an instance based class name and id"""
+        """Prints string representation class name and id"""
 
         line = line.strip()
         if not line:
@@ -62,7 +62,8 @@ class HBNBCommand(cmd.Cmd):
             return
         id_ = list_[1]
         Base_model_id = class_name + "." + id_
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = ["BaseModel", "User", "State", "City",
+                   "Amenity", "Place", "Review"]
         if (class_name not in classes):
             print("** class doesn't exist **")
             return
@@ -97,7 +98,8 @@ class HBNBCommand(cmd.Cmd):
             return
         id_ = list_[1]
         Base_model_id = class_name + "." + id_
-        classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        classes = ["BaseModel", "User", "State", "City",
+                   "Amenity", "Place", "Review"]
         if (class_name not in classes):
             print("** class doesn't exist **")
             return
@@ -110,7 +112,8 @@ class HBNBCommand(cmd.Cmd):
         print("** no instance found **")
 
     def default(self, line):
-        list_of_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        list_of_classes = ["BaseModel", "User", "State",
+                           "City", "Amenity", "Place", "Review"]
         line = line.strip()
         if line.find(".") == -1:
             print("** Unkown syntax: {} ***".format(line))
@@ -120,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name not found **")
             return
         command_part = line.split(".")[1]
-        characters = "[a-zA-Z]+(?=\()"
+        characters = r"[a-zA-Z]+(?=\()"
         specific_command = re.findall(characters, command_part)[0]
         if command_part == "count()":
             count = self.count(class_name)
@@ -145,14 +148,17 @@ class HBNBCommand(cmd.Cmd):
             dictionary_checker = r'(?<={).+?(?=})'
             if len(re.findall(dictionary_checker, command_part)) == 1:
                 id_ = re.findall(characters_checker, command_part)[0]
-                dictionary_string = "{" + re.findall(dictionary_checker, command_part)[0] + "}"
+                key = re.findall(dictionary_checker, command_part)[0]
+                dictionary_string = "{" + key + "}"
                 dictionary = ast.literal_eval(dictionary_string)
             else:
                 characters_checker = r'(?<=")[^,].+?(?=")|\d'
                 dictionary = {}
                 id_ = re.findall(characters_checker, command_part)[0]
                 print(id_)
-                dictionary[re.findall(characters_checker, command_part)[1]] = re.findall(characters_checker, command_part)[2]
+                value = re.findall(characters_checker, command_part)[2]
+                key = re.findall(characters_checker, command_part)[1]
+                dictionary[key] = value
             self.update(class_name, id_, dictionary)
             self.update(class_name, id_. dictionary)
 
@@ -163,8 +169,9 @@ class HBNBCommand(cmd.Cmd):
             return
 
     def do_all(self, line):
-        """Prints all string representation of all instances based or not on the class name. """
-        list_of_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        """Prints all string representation based or not on the class name. """
+        list_of_classes = ["BaseModel", "User", "State", "City",
+                           "Amenity", "Place", "Review"]
         line = line.strip()
         list_ = line.split(" ")
         class_name = list_[0]
@@ -188,7 +195,8 @@ class HBNBCommand(cmd.Cmd):
 
     def count(self, line):
         """prints the number of instances of a class"""
-        list_of_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        list_of_classes = ["BaseModel", "User", "State",
+                           "City", "Amenity", "Place", "Review"]
         if line:
             if (line not in list_of_classes):
                 return (-127)
@@ -209,8 +217,9 @@ class HBNBCommand(cmd.Cmd):
         return (-1)
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id by adding or updating attribute"""
-        list_of_classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+        """Updates an instance based on the class name and id"""
+        list_of_classes = ["BaseModel", "User", "State", "City",
+                           "Amenity", "Place", "Review"]
         line = line.strip()
         if not line:
             print("** class name missing **")
@@ -243,7 +252,8 @@ class HBNBCommand(cmd.Cmd):
                     return
                 if attribute_name in ["id", "created_at", "updated_at"]:
                     return
-                if attribute_name in ["number_rooms", "number_bathrooms", "max_guest", "price_by_night"]:
+                if attribute_name in ["number_rooms", "number_bathrooms",
+                                      "max_guest", "price_by_night"]:
                     attribute_value = int(attribute_value)
                 elif attribute_name in ["latitude", "longitude"]:
                     attribute_value = float(attribute_value)
@@ -256,6 +266,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
             return
+
     def update(self, class_name, id_, dictionary):
         """Updates value based on ID and dictionary"""
         objects_ = storage.all()
@@ -265,7 +276,8 @@ class HBNBCommand(cmd.Cmd):
                 for k, v in dictionary.items():
                     if k in ["id", "created_at", "updated_at"]:
                         continue
-                    if k in ["number_rooms", "number_bathrooms", "max_guest", "price_by_night"]:
+                    if k in ["number_rooms", "number_bathrooms",
+                             "max_guest", "price_by_night"]:
                         dictionary[k] = int(v)
                     if k in ["latitude", "longitude"]:
                         dictionary[k] = float(v)
@@ -274,5 +286,7 @@ class HBNBCommand(cmd.Cmd):
                         tracker = tracker + 1
         if (tracker):
             print("** no instance found **")
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
