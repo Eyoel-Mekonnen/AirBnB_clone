@@ -249,9 +249,9 @@ class HBNBCommand(cmd.Cmd):
                 if attribute_name in ["id", "created_at", "updated_at"]:
                     return
                 if attribute_name in ["number_rooms", "number_bathrooms", "max_guest", "price_by_night"]:
-                    attribute_name = int(attribute_name)
+                    attribute_value = int(attribute_value)
                 elif attribute_name in ["latitude", "longitude"]:
-                    attribute_name = float(attribute_name)
+                    attribute_value = float(attribute_value)
                 if hasattr(instance, attribute_name):
                     setattr(instance, attribute_name, attribute_value)
                     instance.save()
