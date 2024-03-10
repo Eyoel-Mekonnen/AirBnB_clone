@@ -158,7 +158,7 @@ class HBNBCommand(cmd.Cmd):
                 value = re.findall(characters_checker, command_part)[2]
                 key = re.findall(characters_checker, command_part)[1]
                 dictionary[key] = value
-            self.update(class_name, id_, dictionary)
+
             self.update(class_name, id_, dictionary)
 
         elif command_part == "all()":
