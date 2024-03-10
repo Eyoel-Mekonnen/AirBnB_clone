@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 import re
 import ast
+import shlex
 
 
 class HBNBCommand(cmd.Cmd):
@@ -223,7 +224,7 @@ class HBNBCommand(cmd.Cmd):
         if not line:
             print("** class name missing **")
             return
-        list_ = line.split(" ")
+        list_ = shlex.split(line)
         class_name = list_[0]
         if class_name not in list_of_classes:
             print("** class doesn't exist **")
