@@ -140,26 +140,21 @@ class HBNBCommand(cmd.Cmd):
             characters_checker = r'(?<=").+?(?=")'
             id_ = re.findall(characters_checker, command_part)[0]
             self.destroy_instance(id_)
-            print("NOOOO!!!!!")
         elif specific_command == "update":
             characters_checker = r'(?<=")[^,].+?(?=")'
             dictionary_checker = r'(?<={).+?(?=})'
-            print("My length is {}".format(len(re.findall(dictionary_checker, command_part))))
             if len(re.findall(dictionary_checker, command_part)) == 1:
-                print("I have a dictionary")
                 id_ = re.findall(characters_checker, command_part)[0]
                 dictionary_string = "{" + re.findall(dictionary_checker, command_part)[0] + "}"
                 dictionary = ast.literal_eval(dictionary_string)
             else:
-                print("I am string only")
                 characters_checker = r'(?<=")[^,].+?(?=")|\d'
                 dictionary = {}
                 id_ = re.findall(characters_checker, command_part)[0]
                 print(id_)
                 dictionary[re.findall(characters_checker, command_part)[1]] = re.findall(characters_checker, command_part)[2]
             self.update(class_name, id_, dictionary)
-            print(type(dictionary))
-            print(dictionary)
+            self.update(class_name, id_. dictionary)
 
         elif command_part == "all()":
             self.do_all(class_name)
