@@ -260,8 +260,6 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** value missing **")
                     return
-            if (len(list_) > 3):
-                return
         else:
             print("** no instance found **")
             return
