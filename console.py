@@ -156,13 +156,13 @@ class HBNBCommand(cmd.Cmd):
                 characters_checker = r'(?<=")[^,].+?(?=")|[-+]?\d*\.?\d+'
                 dictionary = {}
                 id_ = re.findall(characters_checker, command_part)[0]
-                print("I am id {}".format(id_))
+                """print("I am id {}".format(id_))"""
                 value = re.findall(characters_checker, command_part)[2]
-                print("I am value {}".format(value))
+                """print("I am value {}".format(value))"""
                 key = re.findall(characters_checker, command_part)[1]
-                print("I am key {}".format(key))
+                """print("I am key {}".format(key))"""
                 dictionary[key] = value
-                print("I am the dictionary {}".format(dictionary))
+                """print("I am the dictionary {}".format(dictionary))"""
 
             self.update(class_name, id_, dictionary)
 
