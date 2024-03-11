@@ -155,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
                 for key, value in dictionary.items():
                     if isinstance(value, int) or isinstance(value, float):
                         value = str(value)
-                    line = class_name + " " + id_ + " "+ key + " " + value
+                    line = class_name + " " + id_ + " " + key + " " + value
                     self.do_update(line)
             else:
                 characters_checker = r'(?<=")[^,].+?(?=")|[-+]?\d*\.?\d+'
@@ -166,7 +166,7 @@ class HBNBCommand(cmd.Cmd):
                 """print("I am value {}".format(value))"""
                 key = re.findall(characters_checker, command_part)[1]
                 """print("I am key {}".format(key))"""
-                dictionary = class_name + " " + id_ + " "+ key + " " + value
+                dictionary = class_name + " " + id_ + " " + key + " " + value
                 """print("I am the dictionary {}".format(dictionary))"""
                 print(dictionary)
                 """dictionary = str(dictionary)"""
