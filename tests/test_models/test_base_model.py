@@ -5,6 +5,8 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 import time
+import os
+from time import sleep
 
 
 class TestBaseModel(unittest.TestCase):
@@ -15,17 +17,18 @@ class TestBaseModel(unittest.TestCase):
         base = BaseModel()
         self.assertIsInstance(base, BaseModel)
 
-    def test_the_str_method(self):
-        """Tests the str method in BaseModel"""
-        base = BaseModel()
-        base.id = "101112"
-        string_iso = datetime(2024, 3, 5, 17, 10, 9, 619532).isoformat()
-        base.created_at = string_iso
-        base.updated_at = string_iso
-        dict_ = base.__str__()
-        self.assertEqual("[BaseModel] (101112), {'id': '101112', 'created_at':\
-                         '2024-03-05T17:10:09.619532',\
-                         'updated_at': '2024-03-05T17:10:09.619532'}", dict_)
+    def test_str_representation(self):
+        """Checking the string representation of str"""
+        dt = datetime.today()
+        dt_repr = repr(dt)
+        bm = BaseModel()
+        bm.id = "123456"
+        bm.created_at = bm.updated_at = dt
+        bmstr = bm.__str__()
+        self.assertIn("[BaseModel] (123456)", bmstr)
+        self.assertIn("'id': '123456'", bmstr)
+        self.assertIn("'created_at': " + dt_repr, bmstr)
+        self.assertIn("'updated_at': " + dt_repr, bmstr)
 
     def test_save_method(self):
         """tests the save method of BaseModel"""

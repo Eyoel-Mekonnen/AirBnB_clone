@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 """Unittest case for the class Place"""
+import os
+import models
+import unittest
+from datetime import datetime
+from time import sleep
+from models.place import Place
 
 
 class Test_Place(unittest.TestCase):
@@ -36,6 +42,7 @@ class Test_Place(unittest.TestCase):
         place.latitude = latitude
         self.assertEqual(place.latitude, latitude)
         longitude = 47.23
+        place.longitude = longitude
         self.assertEqual(place.longitude, longitude)
         amenity_ids = "123"
         place.amenity_ids = amenity_ids

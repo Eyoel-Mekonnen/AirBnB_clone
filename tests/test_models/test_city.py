@@ -1,10 +1,16 @@
 #!/usr/bin/python3
 """unittest case for city class"""
+import os
+import models
+import unittest
+from datetime import datetime
+from time import sleep
+from models.city import City
 
 
 class Test_case_City(unittest.TestCase):
     """Class for the unit test of class is created"""
-    
+
     def test_city_instance_creation(self):
         """method of checking instance creation"""
         city = City()
