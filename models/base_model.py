@@ -7,24 +7,22 @@ from datetime import datetime
 import uuid
 
 
-
 class BaseModel:
     """Class BaseModel has been defined"""
     def __init__(self, *args, **kwargs):
         """the object is being instancated"""
-
 
         if len(kwargs) != 0:
             time_format = "%Y-%m-%dT%H:%M:%S.%f"
             for key, value in kwargs.items():
                 if (key == "__class__"):
                     continue
-                elif(key == "id"):
+                elif (key == "id"):
                     self.id = value
-                elif(key == "created_at"):
+                elif (key == "created_at"):
                     date_object = datetime.strptime(value, time_format)
                     self.created_at = date_object
-                elif(key == "updated_at"):
+                elif (key == "updated_at"):
                     date_object = datetime.strptime(value, time_format)
                     self.updated_at = date_object
             if 'id' not in kwargs:
@@ -62,4 +60,3 @@ class BaseModel:
             else:
                 dict_name[key] = value
         return (dict_name)
-
