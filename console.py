@@ -156,8 +156,11 @@ class HBNBCommand(cmd.Cmd):
                 characters_checker = r'(?<=")[^,].+?(?=")|\d'
                 dictionary = {}
                 id_ = re.findall(characters_checker, command_part)[0]
+                print("I am id {}".format(id_))
                 value = re.findall(characters_checker, command_part)[2]
+                print("I am value {}".format(value))
                 key = re.findall(characters_checker, command_part)[1]
+                print("I am key {}".format(key))
                 dictionary[key] = value
 
             self.update(class_name, id_, dictionary)
@@ -280,8 +283,11 @@ class HBNBCommand(cmd.Cmd):
                         dictionary[k] = float(v)
                     setattr(value, k, v)
                     tracker = tracker + 1
-        if (tracker):
+                    value.save()
+    """
+        if (tracker == 0):
             print("** no instance found **")
+    """
 
 
 if __name__ == '__main__':
