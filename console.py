@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
 
         line = line.strip()
         if not line:
-            print("** class name is missing ***")
+            print("** class name missing ***")
             return
         list_ = line.split(" ")
         class_name = list_[0]
@@ -90,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
         """Deletes an instance based on the class name and id"""
         line = line.strip()
         if not line:
-            print("** class name is missing **")
+            print("** class name missing **")
             return
         list_ = line.split(" ")
         class_name = list_[0]
@@ -242,7 +242,7 @@ class HBNBCommand(cmd.Cmd):
             if (len(list_) >= 3):
                 attribute_name = list_[2]
             else:
-                print("** attribute name is missing **")
+                print("** attribute name missing **")
                 return
             if attribute_name:
                 if (len(list_) >= 4):
