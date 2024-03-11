@@ -152,20 +152,27 @@ class HBNBCommand(cmd.Cmd):
                 key = re.findall(dictionary_checker, command_part)[0]
                 dictionary_string = "{" + key + "}"
                 dictionary = ast.literal_eval(dictionary_string)
+                for key, value in dictionary.items():
+                    if isinstance(value, int) or isinstance(value, float):
+                        value = str(value)
+                    line = class_name + " " + id_ + " "+ key + " " + value
+                    self.do_update(line)
             else:
                 characters_checker = r'(?<=")[^,].+?(?=")|[-+]?\d*\.?\d+'
-                dictionary = {}
+                """dictionary = {}"""
                 id_ = re.findall(characters_checker, command_part)[0]
                 """print("I am id {}".format(id_))"""
                 value = re.findall(characters_checker, command_part)[2]
                 """print("I am value {}".format(value))"""
                 key = re.findall(characters_checker, command_part)[1]
                 """print("I am key {}".format(key))"""
-                dictionary[key] = value
+                dictionary = class_name + " " + id_ + " "+ key + " " + value
                 """print("I am the dictionary {}".format(dictionary))"""
-
-            self.update(class_name, id_, dictionary)
-
+                print(dictionary)
+                """dictionary = str(dictionary)"""
+                print(dictionary)
+                """self.update(class_name, id_, dictionary)"""
+                self.do_update(dictionary)
         elif command_part == "all()":
             self.do_all(class_name)
         else:
@@ -272,6 +279,9 @@ class HBNBCommand(cmd.Cmd):
         """Updates value based on ID and dictionary"""
         objects_ = storage.all()
         tracker = 0
+        print("I have been sent here {}".format(dictionary))
+        print("I am Id and am sent here {}".format(id_))
+        print("I am class name and am sent here {}".format(class_name))
         for key, value in objects_.items():
             if key.split(".")[1] == id_:
                 for k, v in dictionary.items():
@@ -284,6 +294,7 @@ class HBNBCommand(cmd.Cmd):
                         dictionary[k] = float(v)
                     setattr(value, k, v)
                     tracker = tracker + 1
+                    print("I am inside")
                     value.save()
     """
         if (tracker == 0):
