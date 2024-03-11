@@ -6,4 +6,4 @@ class Review(BaseModel):
     """Class review is created that inherits from BaseModel"""
     place_id = ""
     user_id = ""
-    test = ""
+    text = ""
