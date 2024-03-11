@@ -278,9 +278,8 @@ class HBNBCommand(cmd.Cmd):
                         dictionary[k] = int(v)
                     if k in ["latitude", "longitude"]:
                         dictionary[k] = float(v)
-                    if hasattr(value, k):
-                        setattr(value, k, v)
-                        tracker = tracker + 1
+                    setattr(value, k, v)
+                    tracker = tracker + 1
         if (tracker):
             print("** no instance found **")
 
