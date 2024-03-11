@@ -57,7 +57,19 @@ class TestFileStorage_methods(unittest.TestCase):
         except IOError:
             pass
         try:
-            os.rename("tmp", "file.json")
+            os.renamet BaseModel: save(self)
+
+            Score: 0 out of 1 points
+
+            Reason:
+
+                 - [Got]
+
+                 (0 chars long)
+
+                 [Expected]
+                 OK
+                 (2 chars long)"tmp", "file.json")
         except IOError:
             pass
         FileStorage._FileStorage__objects = {}

@@ -14,7 +14,7 @@ class TestBaseModel(unittest.TestCase):
         """checking instance"""
         base = BaseModel()
         self.assertIsInstance(base, BaseModel)
-    
+
     def test_the_str_method(self):
         """Tests the str method in BaseModel"""
         base = BaseModel()
@@ -23,12 +23,14 @@ class TestBaseModel(unittest.TestCase):
         base.created_at = string_iso
         base.updated_at = string_iso
         dict_ = base.__str__()
-        self.assertEqual("[BaseModel] (101112) {'id': '101112', 'created_at': '2024-03-05T17:10:09.619532', 'updated_at': '2024-03-05T17:10:09.619532'}", dict_)
-    
+        self.assertEqual("[BaseModel] (101112), {'id': '101112', 'created_at':\
+                         '2024-03-05T17:10:09.619532',\
+                         'updated_at': '2024-03-05T17:10:09.619532'}", dict_)
+
     def test_save_method(self):
         """tests the save method of BaseModel"""
         base = BaseModel()
-        original_time =base.updated_at
+        original_time = base.updated_at
         base.save()
         time.sleep(1)
         self.assertTrue(original_time < base.updated_at)
@@ -40,7 +42,59 @@ class TestBaseModel(unittest.TestCase):
         base.id = "101112"
         base.created_at = time_stamp
         base.updated_at = time_stamp
-        self.assertEqual({'id': '101112', '__class__': 'BaseModel', 'created_at': time_stamp.isoformat(), 'updated_at': time_stamp.isoformat()}, base.to_dict())
+        self.assertEqual({'id': '101112', '__class__': 'BaseModel',
+                         'created_at':
+                          time_stamp.isoformat(), 'updated_at':
+                          time_stamp.isoformat()}, base.to_dict())
 
 
+class TestBaseModel_save(unittest.TestCase):
+    """Unittests for testing save method of the BaseModel class."""
 
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+
+    def test_one_save(self):
+        bm = BaseModel()
+        sleep(0.05)
+        first_updated_at = bm.updated_at
+        bm.save()
+        self.assertLess(first_updated_at, bm.updated_at)
+
+    def test_two_saves(self):
+        bm = BaseModel()
+        sleep(0.05)
+        first_updated_at = bm.updated_at
+        bm.save()
+        second_updated_at = bm.updated_at
+        self.assertLess(first_updated_at, second_updated_at)
+        sleep(0.05)
+        bm.save()
+        self.assertLess(second_updated_at, bm.updated_at)
+
+    def test_save_with_arg(self):
+        bm = BaseModel()
+        with self.assertRaises(TypeError):
+            bm.save(None)
+
+    def test_save_updates_file(self):
+        bm = BaseModel()
+        bm.save()
+        bmid = "BaseModel." + bm.id
+        with open("file.json", "r") as f:
+            self.assertIn(bmid, f.read())
