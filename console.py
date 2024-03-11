@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
 
         line = line.strip()
         if not line:
-            print("*** class name missing ***")
+            print("** class name missing **")
             return
         list_ = line.split(" ")
         class_name = list_[0]
