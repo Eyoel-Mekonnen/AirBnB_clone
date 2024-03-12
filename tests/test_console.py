@@ -39,5 +39,12 @@ class Test_HBNB_command_console(unittest.TestCase):
             HBNBCommand().onecmd("")
             self.assertEqual(f.getvalue(), "")
 
+    def test_create_BaseModel_command_Console(self):
+        """testing the creation of base mode"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("create BaseModel")
+            capture_output = f.getvalue()
+            self.assertTrue(capture_output)
+
 if __name__ == "__main__":
     unittest.main()
