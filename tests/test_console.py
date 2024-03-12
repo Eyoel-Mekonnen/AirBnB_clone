@@ -63,6 +63,9 @@ class Test_HBNB_command_console(unittest.TestCase):
         new_base = BaseModel()
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("destroy BaseModel {}".format(new_base.id))
+            f.seek(0)
+            f.truncate()
+            HBNBCommand().onecmd("show BaseModel")
             captured_output = f.getvalue()
             self.assertNotIn(new_base.id, captured_output)
 
