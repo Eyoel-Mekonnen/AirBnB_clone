@@ -12,6 +12,9 @@ from models.base_model import BaseModel
 from models.review import Review
 from models.user import User
 from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
 
 
 class Test_HBNB_command_console(unittest.TestCase):
@@ -122,7 +125,7 @@ class Test_HBNB_command_console(unittest.TestCase):
             self.assertIn(new_user.id, captured_output)
             self.assertIn(new_user1.id, captured_output)
 
-    def test_user_all_command(self):
+    def test_state_all_command(self):
         """test how user all command will work with State.all()"""
         new_state = State()
         new_state1 = State()
@@ -132,5 +135,34 @@ class Test_HBNB_command_console(unittest.TestCase):
             self.assertIn(new_state.id, captured_output)
             self.assertIn(new_state1.id, captured_output)
 
+    def test_city_all_command(self):
+        """test how city all command will work with City.all()"""
+        new_city = City()
+        new_city1 = City()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("City.all()")
+            captured_output = f.getvalue()
+            self.assertIn(new_city.id, captured_output)
+            self.assertIn(new_city1.id, captured_output)
+
+    def test_amenity_all_command(self):
+        """test how amenity all command will work"""
+        new_amenity = Amenity()
+        new_amenity1 = Amenity()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Amenity.all()")
+            captured_output = f.getvalue()
+            self.assertIn(new_amenity.id, captured_output)
+            self.assertIn(new_amenity1.id, captured_output)
+
+    def test_place_all_command(self):
+        """tests how place all command will work"""
+        new_place = Place()
+        new_place1 = Place()
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("Place.all()")
+            captured_output = f.getvalue()
+            self.assertIn(new_place.id, captured_output)
+            self.assertIn(new_place1.id, captured_output)
 if  __name__ == "__main__":
     unittest.main()
