@@ -8,3 +8,18 @@ from models.engine.file_storage import FileStorage
 from console import HBNBCommand
 from io import StringIO
 from unittest.mock import patch
+
+
+class Test_HBNB_command_console(unittest.TestCase):
+    """"commands of console are checked"""
+    def test_quit_command(self):
+        """test for quit command"""
+        command_result =HBNBCommand().onecmd('quit')
+        self.assertTrue(command_result)
+
+    def test_EOF_command_console(self):
+        """test for EOF command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            command_result = HBNBCommand().onecmd('EOF')
+            self.assertTrue(command_result)
+            self.assertEqual(f.getvalue(), '')
