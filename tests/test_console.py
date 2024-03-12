@@ -23,3 +23,14 @@ class Test_HBNB_command_console(unittest.TestCase):
             command_result = HBNBCommand().onecmd('EOF')
             self.assertTrue(command_result)
             self.assertEqual(f.getvalue(), '')
+
+    def test_hel_command_console(self):
+        """test for help command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd('help')
+            output_patch = f.getvalue()
+            help_commands = ["EOF", "all", "create", "destroy", "help", "quit", "show", "update"]
+            for cmd in help_commands:
+                self.assertIn(cmd, output_patch)
+if __name__ == "__main__":
+    unittest.main()
