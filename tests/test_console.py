@@ -24,7 +24,7 @@ class Test_HBNB_command_console(unittest.TestCase):
             self.assertTrue(command_result)
             self.assertEqual(f.getvalue(), '')
 
-    def test_hel_command_console(self):
+    def test_help_command_console(self):
         """test for help command"""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd('help')
@@ -32,5 +32,12 @@ class Test_HBNB_command_console(unittest.TestCase):
             help_commands = ["EOF", "all", "create", "destroy", "help", "quit", "show", "update"]
             for cmd in help_commands:
                 self.assertIn(cmd, output_patch)
+
+    def test_empty_line_command_console(self):
+        """test for empty line command"""
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("")
+            self.assertEqual(f.getvalue(), "")
+
 if __name__ == "__main__":
     unittest.main()
